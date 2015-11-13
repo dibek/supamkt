@@ -1,29 +1,24 @@
 package com.dibeksupa.supamkt.service;
 
-import com.dibeksupa.supamkt.domain.Discount;
-import com.dibeksupa.supamkt.domain.Item;
-import com.dibeksupa.supamkt.domain.ItemComparator;
-import com.dibeksupa.supamkt.domain.Rule;
+import com.dibeksupa.supamkt.domain.*;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by gdibella on 13/11/15.
  */
 public class SupaRuleEngine implements RuleEngine {
 
-    private List<Item> listItems;
+    private List<Item> items;
     private Map<Long,Discount> mapDiscount;
     List<Rule> rules ;
 
     public List<Item> getItems() {
-        return listItems;
+        return items;
     }
 
     public void setItems(List<Item> listItems) {
-        this.listItems = listItems;
+        this.items = listItems;
     }
 
     public Map<Long, Discount> getMapDiscount() {
@@ -44,7 +39,7 @@ public class SupaRuleEngine implements RuleEngine {
 
     public void processRules() {
         for (Rule rule : getRules()) {
-            dispatch(rule,listItems,mapDiscount);
+            dispatch(rule, items,mapDiscount);
         }
     }
 
@@ -52,19 +47,34 @@ public class SupaRuleEngine implements RuleEngine {
         Collections.sort(listItems,new ItemComparator());
         switch (rule.getName()) {
             case THREEXTWO:
-                List<Item> listTriplet = countTripletSameItem(listItems);
+                Map<Long,SupMktItem> itemsMap = countTripletSameItem(listItems);
         }
 
     }
 
-    private List<Item> countTripletSameItem(List<Item> listItems) {
-        return null;
+    private Map<Long,SupMktItem> countTripletSameItem(List<Item> items) {
+        Map<Long,SupMktItem> itemsTripletMap = new HashMap<Long, SupMktItem>();
+        int count = 0;
+        Item itemCheck= new SupMktItem();
+        for (Item item: items) {
+            if (itemCheck.equals(item)){
+                count++;
+                if (count == 3) {
+                    itemsTripletMap.put(((SupMktItem)item).getId(), (SupMktItem)item);
+                    count = 0;
+                    itemCheck= new SupMktItem();
+                }
+            }
+            itemCheck = item;
+        }
+        return itemsTripletMap;
     }
+
 
     @Override
     public String toString() {
         return "SupaRuleEngine{" +
-                "listItems=" + listItems +
+                "items=" + items +
                 ", mapDiscount=" + mapDiscount +
                 '}';
     }
