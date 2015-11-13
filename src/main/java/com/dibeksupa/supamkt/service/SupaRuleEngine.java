@@ -47,22 +47,27 @@ public class SupaRuleEngine implements RuleEngine {
         Collections.sort(listItems,new ItemComparator());
         switch (rule.getName()) {
             case THREEXTWO:
-                Map<Long,SupMktItem> itemsMap = countTripletSameItem(listItems);
+                Map<Long,Item> itemsMap = countTripletSameItem(listItems);
+                for (Map.Entry<Long,Item> entry : itemsMap.entrySet()){
+                    SupaDiscount discount =  new SupaDiscount();
+                    discount.setName(rule.getName().toString());
+                    mapDiscount.put(entry.getKey(),discount);
+                }
         }
 
     }
 
-    private Map<Long,SupMktItem> countTripletSameItem(List<Item> items) {
-        Map<Long,SupMktItem> itemsTripletMap = new HashMap<Long, SupMktItem>();
+    private Map<Long,Item> countTripletSameItem(List<Item> items) {
+        Map<Long,Item> itemsTripletMap = new HashMap<Long, Item>();
         int count = 0;
-        Item itemCheck= new SupMktItem();
+        Item itemCheck= new Item();
         for (Item item: items) {
             if (itemCheck.equals(item)){
                 count++;
                 if (count == 3) {
-                    itemsTripletMap.put(((SupMktItem)item).getId(), (SupMktItem)item);
+                    itemsTripletMap.put(((Item)item).getId(), (Item)item);
                     count = 0;
-                    itemCheck= new SupMktItem();
+                    itemCheck= new Item();
                 }
             }
             itemCheck = item;

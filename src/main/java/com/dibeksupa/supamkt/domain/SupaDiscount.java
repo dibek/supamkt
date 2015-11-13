@@ -3,7 +3,7 @@ package com.dibeksupa.supamkt.domain;
 /**
  * Created by gdibella on 13/11/15.
  */
-public class SupaDiscount {
+public class SupaDiscount implements Discount {
 
     private String name;
 

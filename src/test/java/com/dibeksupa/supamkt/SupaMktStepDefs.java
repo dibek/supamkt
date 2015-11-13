@@ -54,8 +54,7 @@ public class SupaMktStepDefs {
 
     @Then("^CheckOut result will contain \"([^\"]*)\"$")
     public void CheckOut_result_will_contain(String arg1) throws Throwable {
-        // Express the Regexp above with the code you wish you had
-        throw new PendingException();
+       
     }
 
     @And("^The system process the items$")
