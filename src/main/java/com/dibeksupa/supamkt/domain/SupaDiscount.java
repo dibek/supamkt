@@ -7,6 +7,8 @@ public class SupaDiscount implements Discount {
 
     private String name;
 
+    private long idItem;
+
     public String getName() {
         return name;
     }
@@ -15,26 +17,37 @@ public class SupaDiscount implements Discount {
         this.name = name;
     }
 
+    public long getIdItem() {
+        return idItem;
+    }
+
+    public void setIdItem(long idItem) {
+        this.idItem = idItem;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        SupaDiscount that = (SupaDiscount) o;
+        SupaDiscount discount = (SupaDiscount) o;
 
-        return !(name != null ? !name.equals(that.name) : that.name != null);
+        return !(name != null ? !name.equals(discount.name) : discount.name != null);
 
     }
 
     @Override
     public int hashCode() {
-        return name != null ? name.hashCode() : 0;
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (int) (idItem ^ (idItem >>> 32));
+        return result;
     }
 
     @Override
     public String toString() {
         return "SupaDiscount{" +
                 "name='" + name + '\'' +
+                ", idItem=" + idItem +
                 '}';
     }
 }

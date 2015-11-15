@@ -12,6 +12,9 @@ import java.util.Map;
  */
 public interface RuleEngine {
 
+    /**
+     * Process the list of rule passed to the engine
+     */
     public void processRules();
 
     public List<Item> getItems();

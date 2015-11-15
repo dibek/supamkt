@@ -7,12 +7,15 @@ import java.util.Map;
 
 /**
  * Created by gdibella on 13/11/15.
+ *
+ * This entity contains  the list of items bought
+ * and a map containing the discount objects in which the idItem point to the id of the item discounted
  */
 public class SupaCheckOut implements CheckOut {
 
 
     private List<Item> items;
-    private Map<Long,Discount> mapDiscount;
+    private Map<Long, Discount> mapDiscount;
 
     public List<Item> getItems() {
         return items;

@@ -8,6 +8,7 @@ public class Item {
     private Long id;
     private String name;
     private long  price;
+    private long discountedPrice;
     private boolean discount;
 
     public Long getId() {
@@ -34,6 +35,14 @@ public class Item {
         this.price = price;
     }
 
+    public long getDiscountedPrice() {
+        return discountedPrice;
+    }
+
+    public void setDiscountedPrice(long discountedPrice) {
+        this.discountedPrice = discountedPrice;
+    }
+
     public boolean isDiscount() {
         return discount;
     }
@@ -47,12 +56,13 @@ public class Item {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Item that = (Item) o;
+        Item item = (Item) o;
 
-        if (price != that.price) return false;
-        if (discount != that.discount) return false;
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        return !(name != null ? !name.equals(that.name) : that.name != null);
+        if (price != item.price) return false;
+        if (discountedPrice != item.discountedPrice) return false;
+        if (discount != item.discount) return false;
+        if (id != null ? !id.equals(item.id) : item.id != null) return false;
+        return !(name != null ? !name.equals(item.name) : item.name != null);
 
     }
 
@@ -61,6 +71,7 @@ public class Item {
         int result = id != null ? id.hashCode() : 0;
         result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (int) (price ^ (price >>> 32));
+        result = 31 * result + (int) (discountedPrice ^ (discountedPrice >>> 32));
         result = 31 * result + (discount ? 1 : 0);
         return result;
     }
@@ -71,6 +82,7 @@ public class Item {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
+                ", discountedPrice=" + discountedPrice +
                 ", discount=" + discount +
                 '}';
     }
